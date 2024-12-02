@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { shuffle } from "lodash";
 import ImageBoard from "./ImageBoard";
 
@@ -13,6 +13,23 @@ const MemoryGame = ({ images }: Props) => {
   );
   const [moves, setMoves] = useState<number>(0);
   const [won, setWon] = useState<boolean>(false);
+
+  useEffect(() => {
+    const preloadImages = async () => {
+      await Promise.all(
+        images.map((src) => {
+          return new Promise<string>((resolve, reject) => {
+            const img = new Image();
+            img.src = src;
+            img.onload = () => resolve(src);
+            img.onerror = reject;
+          });
+        }),
+      );
+    };
+
+    preloadImages();
+  }, [images]);
 
   return (
     <div className="relative">

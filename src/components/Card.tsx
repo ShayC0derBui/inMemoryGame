@@ -8,7 +8,7 @@ type Props = {
 const Card = ({ image, flipped, className, onClick }: Props) => {
   return (
     <div
-      className={`flex aspect-square items-center justify-center overflow-hidden rounded-2xl bg-gray-200 ${className}`}
+      className={`flex aspect-square items-center justify-center overflow-hidden rounded-2xl bg-gray-200 hover:bg-gray-300 ${className}`}
       onClick={onClick}
     >
       {flipped ? (
